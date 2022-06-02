@@ -20,7 +20,7 @@ app.use('/images',express.static(path.resolve(__dirname, 'assets/images')));
 app.use('/js',express.static(path.resolve(__dirname, 'assets/js')));
 
 app.get('/',(req, res)=>{
-    res.send("Application");
+    res.render('index');
 })
 
 app.listen(PORT,()=>{console.log(`Server is listening on http://localhost:${PORT}`)});
