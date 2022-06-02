@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Database Project</title>
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ </head>
 <body>
     
  <!--Header-->
@@ -19,5 +20,51 @@
         </nav>
     </header>
  <!--/Header-->
+
+ <!--Main site-->
+<main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex-justify-between">
+            <a href="/add-movie" class="border-shadow">
+                <span class="text-gradient">New Movie<i class="fa-solid fa-film"></i></span>
+            </a>
+        </div>
+
+        <!--form handling-->
+        <form action="/" method="POST">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Movie Title</th>
+                        <th>Release Date</th>
+                        <th>Box Office</th>
+                        <th>action</th>
+                        <th>2</th> <!-- possible extra table -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>sherlock</td>
+                        <td>01.01.2000</td>
+                        <td>200.000.00</td>
+                        <td>
+                            <a href="#" class="btn-border-shadow update">
+                                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                            </a>
+                            <a href="#" class="btn-border-shadow delete">
+                                <span class="text-gradient"><i class="fas fa-times"></i></span>
+                            </a>
+                        </td>
+                        <td>22</td> <!-- possible extra table -->
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <!--/form handling-->
+    </div>
+</main>
+<!--/Main site-->
 </body>
 </html>
