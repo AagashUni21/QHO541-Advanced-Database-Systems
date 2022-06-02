@@ -23,4 +23,8 @@ app.get('/',(req, res)=>{
     res.render('index');
 })
 
+app.get('/add-movie',(req, res)=>{
+    res.render('add_movie');
+})
+
 app.listen(PORT,()=>{console.log(`Server is listening on http://localhost:${PORT}`)});
