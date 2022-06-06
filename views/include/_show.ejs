@@ -5,7 +5,7 @@
     <td><%=movies[i].Release_Date%></td>
     <td><%=movies[i].Box_Office%></td>
     <td>
-        <a href="update-movie" class="btn border-shadow update">
+        <a href="update-movie?id=<%movies[i]._id%>" class="btn border-shadow update">
             <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
         </a>
         <a class="btn border-shadow delete">

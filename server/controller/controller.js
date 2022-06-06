@@ -7,7 +7,7 @@ exports.create=(req,res)=>{
     }
 
     const movie=new Advancedb({
-        Movie_Title:req.body.Movie_Title,
+        title:req.body.Movie_Title,
         Release_Date:req.body.Release_Date,
         Box_Office:req.body.Box_Office
     })
@@ -15,7 +15,7 @@ exports.create=(req,res)=>{
     movie
     .save(movie)
     .then(data=>{
-        res.send(data)
+        res.redirect('/add-movie');
     })
     .catch(err=>{
         res.status(500).send({

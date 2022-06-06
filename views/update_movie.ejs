@@ -20,16 +20,16 @@
     <div class="new_movie">
         <div class="form-group">
             <label for="name" class="text-light">Name</label>
-            <input type="hidden" name="id" value="">
-            <input type="text" name="movie_title" value="" placeholder="Spiderman">
+            <input type="hidden" name="id" value="<%=movie._id%>">
+            <input type="text" name="movie_title" value="<%=movie.Movie_Title%>" placeholder="Spiderman">
         </div>
         <div class="form-group">
          <label for="date" class="text-light">Date</label>
-         <input type="date" name="release_date" value="" placeholder="dd.mm.yyyy">
+         <input type="date" name="release_date" value="<%=movie.Release_date%>" placeholder="dd.mm.yyyy">
         </div>
         <div class="form-group">
          <label for="date" class="text-light">Box Office</label>
-         <input type="number" name="box_office" value="" placeholder="200.000.000.000">
+         <input type="number" name="box_office" value="<%=movie.Box_Office%>" placeholder="200.000.000.000">
         </div>
         <div class="form-group">
             <button type="submit" class="button">Save</button>

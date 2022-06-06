@@ -15,5 +15,10 @@ exports.add_movie=(req,res)=>{
 }
 
 exports.update_movie=(req,res)=>{
-    res.render('update_movie');
+    axios.get('http://localhost:3000/api/movies',{params:{id:req.query.id}})
+    .then(function(moviedata){
+        res.render("update_movie",{movie: moviedata.data})
+    }).catch(err=>{
+        res.send(err);
+    })
 }
