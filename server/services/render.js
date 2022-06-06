@@ -1,5 +1,13 @@
+const axios=require('axios');
+const { response } = require('express');
+
 exports.homeRoutes=(req,res)=>{
-    res.render('index');
+    axios.get('http://localhost:3000/api/movies')
+    .then(function(response){
+        res.render('index',{movies:response.data});
+    }).catch(errr=>{
+        res.send(err);
+    })
 }
 
 exports.add_movie=(req,res)=>{
