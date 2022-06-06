@@ -25,10 +25,30 @@ exports.create=(req,res)=>{
 }
 
 exports.find=(req,res)=>{
-    
+    Advancedb.find()
+    .then(movie=>{
+        res.send(movie)
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message:err.message||"Error occurred while trying to retrieve movie"})
+    })
 }
 
 exports.update=(req,res)=>{
+    if(!req.body){
+        return res.status(400).send({message:"Movie must not be empty to be updated"})
+    }
+    const id=req.params.id;
+    Advancedb.findByIdAndUpdate(id,req.body,{UseFindAndModify:false}).then(data=>{
+        if(!data){
+            res.status(404).send({message:`Cannot update user with ${id}. User not found!`})
+        }else{
+            res.send(data)
+        }
+    }).catch(err=>{
+        res.status(500).send({message: "Error, Update user information"})
+    })
     
 }
 
