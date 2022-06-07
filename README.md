@@ -119,5 +119,51 @@ exports.delete=(req,res)=>{
 }
 ```
 
+### Main Html code:
+```
+<!--include header-->
+ <%-include('include/_header')%>
+<!--include header-->
+ <!--Main site-->
+<main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex justify-between">
+            <a href="/add-movie" class="border-shadow">
+                <span class="text-gradient">New Movie<i class="fa-solid fa-film"></i></span>
+            </a>
+        </div>
+
+        <!--form handling-->
+        <form action="/" method="POST">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Movie Title</th>
+                        <th>Release Date</th>
+                        <th>Box Office</th>
+                        <th>action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                   <%-include('include/_show')%>
+                </tbody>
+            </table>
+        </form>
+        <!--/form handling-->
+    </div>
+</main>
+<!--/Main site-->
+<!--include footer-->
+<%-include('include/_footer')%>
+<!--include footer-->
+```
+
+### Database
+* We have used MongoDB cloud as the database for this project. This helps when hosting website because we will not lose the data in case of physical crash of our system, and it also
+makes it easier for others to access it.
+* It is security protected with the username being "Aagash" and password being "Aagash21"
+
 
 
