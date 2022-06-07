@@ -28,12 +28,54 @@ The Home page displays all the movies currently available in the database.
 * You can read this page upon clicking the New Movies Button
 * The new movies page has a All movies button which redirects users to the home page.
 ![New Movies page](images2/new_movies.png)
+```
+exports.create=(req,res)=>{
+    if(!req.body){
+        res.status(400).send({message:"Content can not be empty!"});
+        return;
+    }
 
+    const movie=new Advancedb({
+        title:req.body.Movie_Title,
+        Release_Date:req.body.Release_Date,
+        Box_Office:req.body.Box_Office
+    })
+
+    movie
+    .save(movie)
+    .then(data=>{
+        res.redirect('/add-movie');
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message:err.message||"Some error has occured while creating a create operation"
+        });
+    });
+}
+```
 ### The update movies page
 * The [Update Movies page]() is a page that allows users to modify the data of the movies. Since the website was meant to be shared to the public, no security has been implemented for the update protocol. 
 * You can read this page upon clicking the Update Movies Button
 * The update movies page also has a All movies button which redirects users to the home page.
 ![Update Movies Page](images2/update_movies.png)
+```
+exports.update=(req,res)=>{
+    if(!req.body){
+        return res.status(400).send({message:"Movie must not be empty to be updated"})
+    }
+    const id=req.params.id;
+    Advancedb.findByIdAndUpdate(id,req.body,{UseFindAndModify:false}).then(data=>{
+        if(!data){
+            res.status(404).send({message:`Cannot update user with ${id}. User not found!`})
+        }else{
+            res.send(data)
+        }
+    }).catch(err=>{
+        res.status(500).send({message: "Error, Update user information"})
+    })
+    
+}
+```
 
 ### The delete button
 * We have not created a new page for delete option, instead we can use the delete icon from the home page to delete any of the movies which needs to be removed.
@@ -76,4 +118,6 @@ exports.delete=(req,res)=>{
     });
 }
 ```
+
+
 
