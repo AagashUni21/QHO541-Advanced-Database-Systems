@@ -25,10 +25,37 @@ The Home page displays all the movies currently available in the database.
 
 ### The new movies page
 * The [New Movies page](...), has a form that uses javascript together with other modules to add the new movie data to the database which becomes visible in the home page.
+* You can read this page upon clicking the New Movies Button
 * The new movies page has a All movies button which redirects users to the home page.
 ![New Movies page](images2/new_movies.png)
 
 ### The update movies page
 * The [Update Movies page]() is a page that allows users to modify the data of the movies. Since the website was meant to be shared to the public, no security has been implemented for the update protocol. 
+* You can read this page upon clicking the Update Movies Button
 * The update movies page also has a All movies button which redirects users to the home page.
 ![Update Movies Page](images2/update_movies.png)
+
+### The delete button
+* We have not created a new page for delete option, instead we can use the delete icon from the home page to delete any of the movies which needs to be removed.
+* We have implemented that user gets asked for confirmation before the delete action and recieves a notification upon successful deletion.
+```
+if(window.location.pathname == "/"){
+    $ondelete = $(".table tbody td a.delete");
+    $ondelete.click(function(){
+        var id = $(this).attr("data-id")
+
+        var request = {
+            "url" : `http://localhost:3000/api/users/${id}`,
+            "method" : "DELETE"
+        }
+
+        if(confirm("Do you really want to delete this record?")){
+            $.ajax(request).done(function(response){
+                alert("Data Deleted Successfully!");
+                location.reload();
+            })
+        }
+
+    })
+}
+```
