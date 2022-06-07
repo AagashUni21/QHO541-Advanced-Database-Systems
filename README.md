@@ -159,11 +159,183 @@ exports.delete=(req,res)=>{
 <%-include('include/_footer')%>
 <!--include footer-->
 ```
+### Javascript:
+```
+$("#add_movie").submit(function(event){
+    alert("Data Inserted Successfully");
+})
+
+$("#add_movie").submit(function(event){
+    event.preventDefault();
+
+    var unindexed_array=$(this).serializeArray();
+    var data= {}
+
+    $.map(unindexed_array, function(n,i){
+    data[n['name']]=n['value']
+    })
+    console.log(unindexed_array);
+
+    var request = {
+        "url": 'http://localhost:3000/api/movies/${data.id}',
+        "method":"PUT",
+        "data":data
+    }
+    $.ajax(request).done(function(response){
+        alert("Data Updated Succesfully")
+    })
+})
+
+
+if(window.location.pathname == "/"){
+    $ondelete = $(".table tbody td a.delete");
+    $ondelete.click(function(){
+        var id = $(this).attr("data-id")
+
+        var request = {
+            "url" : `http://localhost:3000/api/users/${id}`,
+            "method" : "DELETE"
+        }
+
+        if(confirm("Do you really want to delete this record?")){
+            $.ajax(request).done(function(response){
+                alert("Data Deleted Successfully!");
+                location.reload();
+            })
+        }
+
+    })
+}
+```
 
 ### Database
 * We have used MongoDB cloud as the database for this project. This helps when hosting website because we will not lose the data in case of physical crash of our system, and it also
 makes it easier for others to access it.
 * It is security protected with the username being "Aagash" and password being "Aagash21"
+* We connect the database to our website using [dotenv](www.npmjs.com/package/dotenv) and [mongoose](www.npmjs.com/package/mongoose). In the config.env file you can see that apart from localhost set as 3000, we also have connection to db database, with the password being manually entered by us. This is an important point to consider because without it we can not connect to the online database and make changes.
 
 
+```
+const mongoose=require('mongoose');
+
+const connectDB = async()=>{
+    try{
+        const con=await mongoose.connect(process.env.MONGO_URI,{
+            
+        })
+
+        console.log(`MongoDB connected:${con.connection.host}`);
+    }catch(err){
+        console.log(err);
+        process.exit(1);
+    }
+}
+
+module.exports=connectDB
+```
+![Database image](images2/database.png)
+
+* As you can notice above, we have made use of mongodb and we can observe how the data is displayed in the database.
+* Below is the schema we have used for the purpose:
+```
+const mongoose=require('mongoose');
+
+var schema=new mongoose.Schema({
+    Movie_Title:{
+        type:String,
+        require:true,
+        unique:true
+    },
+    Release_Date:{
+        type:Date,
+        required:true
+    },
+    Box_Office:{
+        type:Number,
+        required:true
+    }
+})
+
+const Advancedb=mongoose.model('advancedb',schema);
+
+module.exports=Advancedb;
+```
+### Packages
+You can view every modules we have used in package.json, We have used all these modules for various reasons:
+* Express because it helps to rapidly develop application
+* Morgan which can be used to log messages everytime we make requests
+* Nodemon which restarts server automatically when we make changes, extremely useful since you can keep an eye on the changes you are making in your
+website while coding without using "ctrl + s" everytime, efficiency is afterall one of the key targets of computer science.
+* Ejs was used as a template engine to create dynamic html pages
+* Body-parser serializes data and enable access to form data using body property
+* Dotenv was used to separate secret from sourcecode so we can share sourcecode but not database 
+* Mongoose was used to connect to mongodb
+* Axios makes it easier to make requests in express application
+
+```
+{
+  "name": "advanced-database-project",
+  "version": "1.0.0",
+  "description": "Advanced Database Project using mongodb",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "Advanced Database Project",
+    "mongodb"
+  ],
+  "author": "Aagash Rasalingam",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.5",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
+  }
+}
+```
+
+### Server
+We have created the server for the application using the above mentioned modules.
+
+```
+const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const bodyparser = require('body-parser');
+const path = require('path');
+const { use } = require('express/lib/application');
+
+const connectDB=require('./server/database/connection');
+
+const app = express();
+
+dotenv.config({path:'config.env'})
+const PORT =process.env.PORT||8080
+
+app.use(morgan('tiny'));
+
+connectDB();
+ 
+app.use(bodyparser.urlencoded({extended:true}));
+
+app.set('view engine','ejs');
+
+app.use('/css',express.static(path.resolve(__dirname, 'assets/css')));
+app.use('/images',express.static(path.resolve(__dirname, 'assets/images')));
+app.use('/js',express.static(path.resolve(__dirname, 'assets/js')));
+
+app.use('/',require('./server/routes/router'))
+
+app.listen(PORT,()=>{console.log(`Server is listening on http://localhost:${PORT}`)});
+```
+### Conclusion
+* User can access the website from the web url, since we have hosted the page. Apart from that, the user can host the page from the local pc using the .env file and changing 
+local host to their desire port. 
 
