@@ -1,7 +1,7 @@
 # Online Movie System
 ## Advance Database Project, using [MongoDB](www.mongodb.com/) and [NodeJS](nodejs.org/en/).
 For this website i have chosen to make a website that lets users add movies to the collection. The website already has a few movies viewable.
-I have created this website using a non relational database. I have hosted this website online in [Atlas](https://www.mongodb.com/atlas)
+I have created this website using a non relational database. I have hosted this database online in [Atlas](https://www.mongodb.com/atlas)
 ### The following modules have been used in this project:
 - [express](www.npmjs.com/package/express)
 - [morgan](www.npmjs.com/package/morgan)
@@ -24,7 +24,7 @@ The Home page displays all the movies currently available in the database.
 ![index page view](images2/index.png)
 
 ### The new movies page
-* The [New Movies page](...), has a form that uses javascript together with other modules to add the new movie data to the database which becomes visible in the home page.
+* The [New Movies page](), has a form that uses javascript together with other modules to add the new movie data to the database which becomes visible in the home page.
 * You can read this page upon clicking the New Movies Button
 * The new movies page has a All movies button which redirects users to the home page.
 ![New Movies page](images2/new_movies.png)
@@ -336,6 +336,6 @@ app.use('/',require('./server/routes/router'))
 app.listen(PORT,()=>{console.log(`Server is listening on http://localhost:${PORT}`)});
 ```
 ### Conclusion
-* User can access the website from the web url, since we have hosted the page. Apart from that, the user can host the page from the local pc using the .env file and changing 
+* User can host the page from the local pc using the .env file and changing 
 local host to their desire port. 
 
